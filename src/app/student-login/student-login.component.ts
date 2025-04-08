@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -10,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-student-login',
-  standalone:true,
+  standalone: true,
   imports: [
     CommonModule,
     MatCardModule,
@@ -30,19 +32,32 @@ export class StudentLoginComponent {
   };
 
   constructor(
-    private snackBar: MatSnackBar
-  ) { }
+    private snackBar: MatSnackBar,
+    private http: HttpClient,
+    private router: Router
+  ) {}
 
-  // Handles the login process
   handleLogin() {
-    // Basic validation for empty fields
     if (!this.formData.Username || !this.formData.Password) {
       this.openSnackbar('Both fields are required.', 'error');
       return;
     }
+
+    this.http.post('http://localhost:8000/user/login/', this.formData).subscribe({
+      next: (response: any) => {
+        // Save the username to localStorage
+        localStorage.setItem('username', this.formData.Username);
+
+        this.openSnackbar(response.message || 'Login successful.', 'success');
+        this.router.navigate(['/student/dashboard']); // Redirect to dashboard
+      },
+      error: (error) => {
+        const message = error.error?.message || 'Login failed. Please try again.';
+        this.openSnackbar(message, 'error');
+      }
+    });
   }
 
-  // Utility method to show snackbar notifications
   openSnackbar(message: string, severity: 'success' | 'error') {
     const snackBarClass = severity === 'success' ? 'snackbar-success' : 'snackbar-error';
     this.snackBar.open(message, 'Close', {
