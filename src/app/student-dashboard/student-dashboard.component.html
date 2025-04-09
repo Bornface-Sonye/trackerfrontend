@@ -1,159 +1,81 @@
-<!-- Main Wrapper -->
-<div class="main-wrapper">
-    <!-- Page Content -->
-    <div class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar"> 
-                    <!-- Profile Sidebar -->
-                    <div class="profile-sidebar">
-                        <div class="widget-profile pro-widget-content">
-                            <div class="profile-info-widget">
-                                <a href="#" class="booking-doc-img">
-                                    <img src="/img/logo.png" alt="User Image">
-                                </a>
-                                <div class="profile-det-info">
-                                    <h3>Carl Peters</h3>
-                                    
-                                    <div class="patient-details">
-                                        <h5 class="mb-0">Bsc. Computer Science</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="dashboard-widget">
-                            <nav class="dashboard-menu">
-                                <ul>
-                                  <li class="active">
-                                    <a href="http://localhost:4200/student/dashboard">
-                                      <i class="fa fa-home"></i>
-                                      <span>Dashboard</span>
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a href="http://localhost:4200/student/complaints">
-                                      <i class="fa fa-file-alt"></i>  <!-- Changed icon -->
-                                      <span>Complaints</span>
-                                    </a>
-                                  </li>
-                                  <!-- Logout Link -->
-                                  <li>
-                                    <a href="javascript:void(0)" (click)="logout()">
-                                      <i class="fa fa-sign-out-alt"></i>
-                                      <span>Logout</span>
-                                    </a>
-                                  </li>
-                                </ul>
-                              </nav>                                                            
-                        </div>
-                    </div>
-                    <!-- /Profile Sidebar -->
-                </div>
-                
-                <div class="col-md-7 col-lg-8 col-xl-9">
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="#">Student Dashboard</a>
+</nav>
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card dash-card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-12 col-lg-4">
-                                            <div class="dash-widget dct-border-rht">                                                
-                                                <div class="dash-widget-info">
-                                                    <h6>Total Complaints</h6>
-                                                    <h3>30</h3>
-                                                    <p class="text-muted">08, April 2025</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12 col-lg-4">
-                                            <div class="dash-widget dct-border-rht">                                                
-                                                <div class="dash-widget-info">
-                                                    <h6>Pending Complaints</h6>
-                                                    <h3>3</h3>
-                                                    <p class="text-muted">08, April 2025</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="col-md-12 col-lg-4">
-                                            <div class="dash-widget">
-                                                <div class="dash-widget-info">
-                                                    <h6>Resolved Complaints</h6>
-                                                    <h3>27</h3>
-                                                    <p class="text-muted">08, April 2025</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h4 class="mb-4">Student Complaints</h4>
-                            <div class="appointment-tab">
-                            
-                                <!-- Complaints Tab -->
-                                <ul class="nav nav-tabs nav-tabs-solid nav-tabs-rounded">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" data-toggle="tab">Upcoming</a>
-                                    </li>
-                                </ul>
-                                <!-- /Appointment Tab -->
-                                
-                                <div class="tab-content">
-                                
-                                    <!-- Upcoming Appointment Tab -->
-                                    <div class="tab-pane show active" id="upcoming-complaints">
-                                        <div class="card card-table mb-0">
-                                            <div class="card-body">
-                                                <div class="table-responsive">
-                                                    <table class="table table-hover table-center mb-0">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Course Code</th>
-                                                                <th>Academic Year</th>
-                                                                <th>Lecturer</th>
-                                                                <th>Status</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <h2 class="table-avatar">
-                                                                        BCS 123
-                                                                    </h2>
-                                                                </td>
-                                                                <td>2023/2024</td>
-                                                                <td>Matoke</td>
-                                                                <td>Resolved</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <h2 class="table-avatar">
-                                                                        BCS 123
-                                                                    </h2>
-                                                                </td>
-                                                                <td>2023/2024</td>
-                                                                <td>Matoke</td>
-                                                                <td>Resolved</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>		
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /Upcoming Appointment Tab -->          
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<div class="container-fluid mt-4">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-md-3">
+      <ul class="list-group">
+        <a class="list-group-item list-group-item-action" href="http://localhost:4200/student/dashboard" id="dashboardLink">Dashboard</a>
+        <a class="list-group-item list-group-item-action" href="http://localhost:4200/student/complaints" id="complaintsLink">Complaints</a>
+        <a class="list-group-item list-group-item-action" href="#logout" id="logoutLink">Logout</a>
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <main class="col-md-9">
+      <div id="dashboard" class="content-section">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h3 class="card-title">Dashboard</h3>
+            <p>Welcome to missing mark tracker! Here you can manage your missing mark complaints.</p>
+          </div>
         </div>
-    </div>		
-    <!-- /Page Content -->
+
+        <!-- Cards for Dashboard Overview -->
+        <div class="row">
+          <!-- Total Courses with Missing Marks -->
+          <div class="col-md-3">
+            <div class="card dashboard-card">
+              <div class="card-body">
+                <h5 class="card-title">Missing Marks</h5>
+                <p class="card-text">{{ totalCoursesWithMissingMarks }}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Total Complaints Resolved -->
+          <div class="col-md-3">
+            <div class="card dashboard-card">
+              <div class="card-body">
+                <h5 class="card-title">Complaints Resolved</h5>
+                <p class="card-text">{{ totalComplaintsResolved }}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Total Pending Complaints -->
+          <div class="col-md-3">
+            <div class="card dashboard-card">
+              <div class="card-body">
+                <h5 class="card-title">Pending Complaints</h5>
+                <p class="card-text">{{ totalPendingComplaints }}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Total In Progress Complaints -->
+          <div class="col-md-3">
+            <div class="card dashboard-card">
+              <div class="card-body">
+                <h5 class="card-title">In Progress Complaints</h5>
+                <p class="card-text">{{ totalInProgressComplaints }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="logout" class="content-section" style="display: none;">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h3 class="card-title">Logout</h3>
+            <button class="btn btn-danger" (click)="logout()">Logout</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

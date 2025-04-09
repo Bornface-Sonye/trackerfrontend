@@ -1,1 +1,66 @@
-<p>student-complaints works!</p>
+<div class="container mt-4">
+  <h2 class="mb-4 text-center">My Complaints</h2>
+
+  <div *ngIf="complaints.length === 0" class="alert alert-info text-center">No complaints submitted yet.</div>
+
+  <div *ngIf="complaints.length > 0" class="table-responsive mb-4 shadow-lg rounded">
+    <table class="table table-bordered table-striped table-hover">
+      <thead class="table-light">
+        <tr>
+          <th>#</th>
+          <th>Course</th>
+          <th>Semester</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of complaints; let i = index" class="table-row">
+          <td>{{ i + 1 }}</td>
+          <td>{{ c.course_name }}</td>
+          <td>{{ c.semester }}</td>
+          <td>
+            <span class="badge" [ngClass]="c.is_resolved ? 'bg-success' : 'bg-warning'">
+              {{ c.is_resolved ? 'Resolved' : 'Pending' }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="text-center">
+    <button class="btn btn-primary btn-lg px-4 py-2" (click)="openModal()">File Complaint</button>
+  </div>
+</div>
+
+<!-- Modal -->
+<div *ngIf="isModalOpen" class="modal-overlay">
+  <div class="modal-dialog rounded shadow-lg">
+    <form class="modal-content" (ngSubmit)="submitComplaint()">
+      <div class="modal-header">
+        <h5 class="modal-title">New Complaint</h5>
+        <button type="button" class="btn-close" (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body row g-3">
+        <div class="col-12">
+          <label for="course_id" class="form-label">Course</label>
+          <input type="number" class="form-control" id="course_id" [(ngModel)]="newComplaint.course_id" name="course_id" required>
+        </div>
+        <div class="col-12">
+          <label for="semester_id" class="form-label">Semester</label>
+          <input type="number" class="form-control" id="semester_id" [(ngModel)]="newComplaint.semester_id" name="semester_id" required>
+        </div>
+        <!-- Description Field -->
+        <div class="col-12">
+          <label for="description" class="form-label">Description</label>
+          <textarea class="form-control" id="description" [(ngModel)]="newComplaint.description" name="description" rows="4" required></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary">Submit Complaint</button>
+      </div>
+    </form>
+  </div>
+</div>
+

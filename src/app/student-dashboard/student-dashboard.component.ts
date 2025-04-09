@@ -1,47 +1,48 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-student-dashboard',
-  standalone:true,
-  imports: [CommonModule],
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+  ],
   templateUrl: './student-dashboard.component.html',
   styleUrls: ['./student-dashboard.component.scss']
 })
-export class StudentDashboardComponent {
-  upcomingAppointments = [
-    { name: 'Wiliam Ruto', date: '4th April 2025', time: '10:00 AM', purpose: 'General', location: 'Eldoret Farm', contact: '+254700123456' },
-    { name: 'Charlene Ruto', date: '4th April 2025', time: '11:00 AM', purpose: 'General', location: 'Nairobi Dairy', contact: '+254711654321' }
-  ];
+export class StudentDashboardComponent implements OnInit {
+  // Dummy data for dashboard
+  totalCoursesWithMissingMarks: number = 0;
+  totalComplaintsResolved: number = 0;
+  totalPendingComplaints: number = 0;
+  totalInProgressComplaints: number = 0;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  // Dummy list of student courses
+  studentCourses: string[] = ['BCS 134', 'BCS 345', 'BCS 223'];
 
-  ngOnInit(): void {}
-
-  acceptAppointment(index: number) {
-    console.log(`Accepted appointment for ${this.upcomingAppointments[index].name} at ${this.upcomingAppointments[index].location} on ${this.upcomingAppointments[index].date} at ${this.upcomingAppointments[index].time}`);
+  // Function to simulate fetching dashboard data
+  getDashboardData() {
+    // Here we use dummy data to populate the dashboard stats
+    this.totalCoursesWithMissingMarks = 5;
+    this.totalComplaintsResolved = 10;
+    this.totalPendingComplaints = 3;
+    this.totalInProgressComplaints = 2;
   }
 
-  cancelAppointment(index: number) {
-    console.log(`Cancelled appointment for ${this.upcomingAppointments[index].name}`);
+  ngOnInit() {
+    // Call getDashboardData to initialize the dummy data on component load
+    this.getDashboardData();
   }
 
   // Logout method
   logout() {
-    // Remove the username from localStorage
     localStorage.removeItem('username');
-
-    // Call backend to handle the logout process
-    this.http.post('http://localhost:8000/user/logout/', {}).subscribe({
-      next: (response: any) => {
-        console.log(response.message);
-        this.router.navigate(['/student/login']); // Redirect to login page after logout
-      },
-      error: (error) => {
-        console.error('Logout failed', error);
-      }
-    });
+    console.log('Logged out');
+    this.router.navigate(['/student/login']);
   }
+
+  constructor(private router: Router) {}
 }

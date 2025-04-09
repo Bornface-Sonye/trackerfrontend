@@ -1,0 +1,156 @@
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="#">UniMarks</a>
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item"><a class="nav-link" routerLink="/cod/dashboard">Dashboard</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/cod/department">Department Overview</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/cod/complaints">Complaints</a></li>
+    </ul>
+    <div class="dropdown ml-auto">
+      <button class="btn btn-primary dropdown-toggle" type="button" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-user-circle"></i>
+      </button>
+      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenu">
+        <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Profile Settings</a>
+        <a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt mr-2"></i>Logout</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid mt-4">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-md-3">
+      <ul class="list-group">
+        <a class="list-group-item list-group-item-action" routerLink="/cod/dashboard">Dashboard</a>
+        <a class="list-group-item list-group-item-action" routerLink="/cod/department">Department Overview</a>
+        <a class="list-group-item list-group-item-action" routerLink="/cod/complaints">Complaints</a>
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="col-md-9">
+      <!-- Department Complaints Overview -->
+      <div>
+        <h2>Department Complaints Overview</h2>
+        <div id="accordion">
+          <div *ngFor="let complaint of complaints; let i = index" class="card">
+            <div class="card-header" id="heading{{i}}">
+              <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" [attr.data-target]="'#collapse'+i" aria-expanded="true" [attr.aria-controls]="'collapse'+i">
+                  {{ complaint.studentName }} - {{ complaint.course }} ({{ complaint.status | titlecase }})
+                </button>
+              </h5>
+            </div>
+
+            <div [id]="'collapse'+i" class="collapse" [attr.aria-labelledby]="'heading'+i" data-parent="#accordion">
+              <div class="card-body">
+                <p><strong>Programme:</strong> {{ complaint.programme }}</p>
+                <p><strong>Semester:</strong> {{ complaint.semester }}</p>
+                <p><strong>Description:</strong> {{ complaint.description }}</p>
+                <p><strong>Filed At:</strong> {{ complaint.filedAt }}</p>
+                <p><strong>Lecturer:</strong> {{ complaint.lecturerName }}</p>
+
+                <div class="form-group">
+                  <label for="codComment{{i}}">CoD Comment</label>
+                  <textarea class="form-control" id="codComment{{i}}" [(ngModel)]="complaint.codComment"></textarea>
+                </div>
+
+                <button class="btn btn-primary" (click)="updateCodComment(complaint)">Submit Comment</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Missing Mark Complaints -->
+      <div>
+        <h2>Manage Missing Mark Complaints</h2>
+        <div id="accordion">
+          <div *ngFor="let complaint of complaints; let i = index" class="card">
+            <div class="card-header" id="heading{{i}}">
+              <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" [attr.data-target]="'#collapse'+i" aria-expanded="true" [attr.aria-controls]="'collapse'+i">
+                  {{ complaint.studentName }} - {{ complaint.course }}
+                </button>
+              </h5>
+            </div>
+
+            <div [id]="'collapse'+i" class="collapse" [attr.aria-labelledby]="'heading'+i" data-parent="#accordion">
+              <div class="card-body">
+                <p><strong>Description:</strong> {{ complaint.description }}</p>
+                <p><strong>Filed:</strong> {{ complaint.filedAt }}</p>
+
+                <div class="form-group">
+                  <label for="lecturerComment{{i}}">Add Comment</label>
+                  <textarea class="form-control" id="lecturerComment{{i}}" [(ngModel)]="complaint.lecturerComment"></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label for="status{{i}}">Status</label>
+                  <select class="form-control" id="status{{i}}" [(ngModel)]="complaint.status">
+                    <option *ngFor="let option of statusOptions" [value]="option">{{ option | titlecase }}</option>
+                  </select>
+                </div>
+
+                <button class="btn btn-primary" (click)="updateComplaint(complaint)">Update</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- File New Complaint -->
+      <section class="file-complaint-section">
+        <h3>File New Complaint</h3>
+        <form (ngSubmit)="fileComplaint()" #complaintForm="ngForm">
+          <div class="form-group">
+            <label for="course">Course</label>
+            <select class="form-control" id="course" [(ngModel)]="newComplaint.course" name="course" required>
+              <option *ngFor="let course of studentCourses" [value]="course">{{ course }}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="semester">Semester</label>
+            <input type="text" class="form-control" id="semester" [(ngModel)]="newComplaint.semester" name="semester" required>
+          </div>
+
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" rows="3" [(ngModel)]="newComplaint.description" name="description" required></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit Complaint</button>
+        </form>
+      </section>
+
+      <!-- Complaint History -->
+      <section class="complaint-history-section">
+        <h3>Previous Complaints</h3>
+        <div id="accordion">
+          <div *ngFor="let complaint of complaints; let i = index" class="card">
+            <div class="card-header" id="heading{{i}}">
+              <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" [attr.data-target]="'#collapse'+i" aria-expanded="true" [attr.aria-controls]="'collapse'+i">
+                  {{ complaint.course }} - {{ complaint.status | titlecase }}
+                </button>
+              </h5>
+            </div>
+
+            <div [id]="'collapse'+i" class="collapse" [attr.aria-labelledby]="'heading'+i" data-parent="#accordion">
+              <div class="card-body">
+                <p><strong>Semester:</strong> {{ complaint.semester }}</p>
+                <p><strong>Filed:</strong> {{ complaint.filedAt }}</p>
+                <p><strong>Lecturer Comment:</strong> {{ complaint.lecturerComment || 'No comment yet' }}</p>
+                <p><strong>Last Updated:</strong> {{ complaint.updatedAt || 'N/A' }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

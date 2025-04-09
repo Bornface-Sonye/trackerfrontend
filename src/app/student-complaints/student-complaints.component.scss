@@ -1,0 +1,103 @@
+/* Overall Container Styling */
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+}
+
+/* Table Styling */
+.table {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.table th, .table td {
+  text-align: center;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.table-light {
+  background-color: #f8f9fa;
+}
+
+/* Badge Styling */
+.badge {
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.bg-success {
+  background-color: #28a745 !important;
+}
+
+.bg-warning {
+  background-color: #ffc107 !important;
+}
+
+/* Button Styling */
+.btn {
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 50px;
+}
+
+.btn-lg {
+  font-size: 18px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+/* Modal Styling */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-dialog {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 10px;
+}

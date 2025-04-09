@@ -1,0 +1,78 @@
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="#">UniMarks</a>
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item"><a class="nav-link" routerLink="/lecturer/dashboard">Dashboard</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/lecturer/courses">Handled Courses</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/lecturer/complaints">Complaints</a></li>
+    </ul>
+    <div class="dropdown ml-auto">
+      <button class="btn btn-primary dropdown-toggle" type="button" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-user-circle"></i>
+      </button>
+      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenu">
+        <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Profile Settings</a>
+        <a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt mr-2"></i>Logout</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid mt-4">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-md-3">
+      <ul class="list-group">
+        <a class="list-group-item list-group-item-action" routerLink="/lecturer/dashboard">Dashboard</a>
+        <a class="list-group-item list-group-item-action" routerLink="/lecturer/courses">Handled Courses</a>
+        <a class="list-group-item list-group-item-action" routerLink="/lecturer/complaints">Complaints</a>
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="col-md-9">
+      <!-- Manage Missing Mark Complaints -->
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title">Manage Missing Mark Complaints</h2>
+
+          <div id="accordion">
+            <div *ngFor="let complaint of complaints; let i = index" class="card">
+              <div class="card-header" id="heading{{i}}">
+                <h5 class="mb-0">
+                  <button class="btn btn-link" data-toggle="collapse" [attr.data-target]="'#collapse'+i" aria-expanded="true" [attr.aria-controls]="'collapse'+i">
+                    {{ complaint.studentName }} - {{ complaint.course }}
+                  </button>
+                </h5>
+              </div>
+
+              <div [id]="'collapse'+i" class="collapse" [attr.aria-labelledby]="'heading'+i" data-parent="#accordion">
+                <div class="card-body">
+                  <p><strong>Description:</strong> {{ complaint.description }}</p>
+                  <p><strong>Filed:</strong> {{ complaint.filedAt }}</p>
+
+                  <div class="form-group">
+                    <label for="lecturerComment{{i}}">Add Comment</label>
+                    <textarea class="form-control" id="lecturerComment{{i}}" rows="3" [(ngModel)]="complaint.lecturerComment"></textarea>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="status{{i}}">Status</label>
+                    <select class="form-control" id="status{{i}}" [(ngModel)]="complaint.status">
+                      <option value="pending">Pending</option>
+                      <option value="in progress">In Progress</option>
+                      <option value="resolved">Resolved</option>
+                    </select>
+                  </div>
+
+                  <button class="btn btn-primary" (click)="updateComplaint(complaint)">Update</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

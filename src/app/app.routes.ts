@@ -4,6 +4,8 @@ import { StudentSignupComponent } from './student-signup/student-signup.componen
 import { StudentForgotComponent } from './student-forgot/student-forgot.component';
 import { StudentDashboardComponent } from './student-dashboard/student-dashboard.component';
 import { StudentComplaintsComponent } from './student-complaints/student-complaints.component';
+import { LecturerDashboardComponent } from './lecturer-dashboard/lecturer-dashboard.component';
+import { CodDashboardComponent } from './cod-dashboard/cod-dashboard.component';
 
 export const routes: Routes = [
     { path: '', component: StudentLoginComponent },
@@ -12,4 +14,6 @@ export const routes: Routes = [
     { path: 'student/forgot', component: StudentForgotComponent },
     { path: 'student/dashboard', component: StudentDashboardComponent },
     { path: 'student/complaints', component: StudentComplaintsComponent },
+    { path: 'lecturer/dashboard', component: LecturerDashboardComponent },
+    { path: 'cod/dashboard', component: CodDashboardComponent },
 ];
